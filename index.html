@@ -50,22 +50,15 @@
       background: var(--bg-color);
       box-shadow: 0 0 40px var(--shadow);
       position: relative;
-      animation: slideFade 0.8s ease-out;
-    }
-
-    @keyframes slideFade {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
       font-family: 'Urbanist', sans-serif;
-      font-size: 3.2rem;
+      font-size: 3rem;
       margin: 0;
       background: linear-gradient(90deg, #00d4ff, var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      /* Removed text-shadow for no glow effect */
     }
 
     .theme-toggle {
@@ -79,76 +72,78 @@
       font-size: 1.2rem;
       padding: 6px 14px;
       cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .theme-toggle:hover {
-      background-color: var(--accent);
-      color: white;
     }
 
     .container {
       max-width: 1000px;
-      margin: 40px auto;
-      padding: 40px 25px;
+      margin: 30px auto;
+      padding: 20px;
       background: var(--card-bg);
       backdrop-filter: blur(20px);
       border-radius: 18px;
       border: 1px solid var(--border);
-      box-shadow: 0 8px 40px var(--shadow);
-      animation: fadeInUp 1s ease-in-out;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     h2 {
       font-family: 'Urbanist', sans-serif;
-      font-size: 2rem;
+      font-size: 1.8rem;
       color: var(--accent);
       border-left: 4px solid var(--accent);
       padding-left: 15px;
-      margin-bottom: 25px;
+      margin: 35px 0 15px;
     }
 
     .model-container {
-      margin: 30px 0;
-      border-radius: 12px;
-      padding: 20px;
+      margin: 20px 0;
+      padding: 10px;
       background: var(--card-bg);
       border: 1px solid var(--border);
-      box-shadow: inset 0 0 10px var(--accent);
-      transition: transform 0.3s ease;
-    }
-
-    .model-container:hover {
-      transform: scale(1.01);
+      border-radius: 12px;
     }
 
     model-viewer {
       width: 100%;
-      height: 500px;
+      height: 400px;
       border-radius: 12px;
     }
 
     ul {
       list-style: none;
       padding: 0;
-      max-width: 650px;
-      margin: 0 auto 30px;
     }
 
     li {
-      padding: 12px 0;
+      padding: 10px 0;
       border-bottom: 1px dashed var(--border);
-      font-size: 1.05rem;
-      transition: transform 0.2s;
     }
 
-    li:hover {
-      transform: translateX(5px);
+    .color-swatch-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0 30px;
+    }
+
+    .color-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      box-shadow: 0 0 5px var(--shadow);
+    }
+
+    #ar-button {
+      background: linear-gradient(145deg, var(--accent), #00c8ff);
+      border: none;
+      padding: 12px 26px;
+      font-size: 1rem;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     footer {
@@ -160,59 +155,12 @@
       border-top: 1px solid var(--border);
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    #ar-button {
-      background: linear-gradient(145deg, var(--accent), #00c8ff);
-      border: none;
-      padding: 12px 26px;
-      font-size: 1rem;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-      box-shadow: 0 0 15px rgba(0, 200, 255, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    #ar-button:hover {
-      background: linear-gradient(145deg, #00b0ff, #007acc);
-      box-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
-    }
-
-    .color-swatch {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      margin-right: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .color-swatch:hover {
-      transform: scale(1.1);
-    }
-
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
-
-      model-viewer {
-        height: 300px;
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.4rem; }
+      model-viewer { height: 280px; }
+      .color-swatch-container {
+        justify-content: center;
       }
     }
   </style>
@@ -227,14 +175,19 @@
 <div class="container">
   <h2>3D Preview</h2>
   <div class="model-container">
-    <model-viewer src="https://cdn.glitch.me/ebbc803b-71ee-49ee-8a5f-8ea5f410b80c/Test%20sofa.glb?v=1744973549737"
-                  ar ar-modes="webxr scene-viewer quick-look"
-                  camera-controls tone-mapping="neutral"
-                  poster="poster.webp" shadow-intensity="1">
+    <model-viewer 
+      src="https://cdn.glitch.me/ebbc803b-71ee-49ee-8a5f-8ea5f410b80c/Test%20sofa.glb?v=1744973549737"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      camera-controls
+      tone-mapping="neutral"
+      shadow-intensity="1"
+      autoplay
+      exposure="1"
+      camera-orbit="0deg 75deg 2.5m"
+      alt="Luxura Sofa 3D model">
+      
       <button slot="ar-button" id="ar-button">View in Your Space</button>
-      <div id="ar-prompt">
-        <img src="https://modelviewer.dev/shared-assets/icons/hand.png" alt="AR Prompt">
-      </div>
     </model-viewer>
   </div>
 
@@ -249,41 +202,40 @@
   </ul>
 
   <h2>Available Color Options</h2>
-  <div>
+  <div class="color-swatch-container">
     <div class="color-swatch" style="background-color: #333;" title="Charcoal Grey"></div>
-    <div class="color-swatch" style="background-color: #1e90ff;" title="Ocean Blue"></div>
-    <div class="color-swatch" style="background-color: #f4a300;" title="Sand Beige"></div>
-    <div class="color-swatch" style="background-color: #fff;" title="White"></div>
+    <div class="color-swatch" style="background-color: #0099cc;" title="Ocean Blue"></div>
+    <div class="color-swatch" style="background-color: #f1e1d1;" title="Sand Beige"></div>
+    <div class="color-swatch" style="background-color: #ffffff;" title="White"></div>
   </div>
 
-  <h2>Why Choose Luxura?</h2>
+  <h2>Specifications</h2>
   <ul>
-    <li>Top-tier materials for the ultimate comfort.</li>
-    <li>Effortless assembly with a tool-free design.</li>
-    <li>Elegant and modern design complements any space.</li>
-    <li>Exclusive 3-year warranty to ensure peace of mind.</li>
+    <li><strong>Dimensions:</strong> 210cm x 90cm x 85cm</li>
+    <li><strong>Material:</strong> Velvet + Hardwood</li>
+    <li><strong>Color Options:</strong> Charcoal Grey, Ocean Blue, Sand Beige, White</li>
+    <li><strong>Weight:</strong> 45 kg</li>
+    <li><strong>Seating Capacity:</strong> 3 Seater</li>
+    <li><strong>Warranty:</strong> 3 Years</li>
   </ul>
 
   <h2>Customer Reviews</h2>
+  <p>⭐⭐⭐⭐⭐ "The Luxura Sofa transformed my living room, the quality is exceptional!" – Emily J.</p>
+  <p>⭐⭐⭐⭐⭐ "Super comfortable and stylish, fits perfectly with my modern decor!" – John D.</p>
+
+  <h2>Why Choose Luxura?</h2>
   <ul>
-    <li><strong>John D.</strong> – ⭐⭐⭐⭐⭐ "Absolutely stunning sofa! Comfortable and looks amazing in my living room." </li>
-    <li><strong>Emily S.</strong> – ⭐⭐⭐⭐⭐ "The quality is top-notch. The velvet is so soft and luxurious!"</li>
-    <li><strong>Michael P.</strong> – ⭐⭐⭐⭐ "Very easy to assemble and looks just like the photos. Worth the price!"</li>
+    <li>Luxurious Comfort and Design</li>
+    <li>Durable and Long-Lasting Materials</li>
+    <li>Eco-Friendly Manufacturing</li>
+    <li>Customizable for Your Space</li>
   </ul>
 
   <h2>FAQ</h2>
   <ul>
-    <li><strong>Q:</strong> What materials is the Luxura Sofa made from?</li>
-    <li><strong>A:</strong> The Luxura Sofa is crafted with premium velvet and a hardwood frame.</li>
-    <li><strong>Q:</strong> Is assembly required?</li>
-    <li><strong>A:</strong> No, the sofa comes fully assembled with a tool-free setup.</li>
-    <li><strong>Q:</strong> Can I customize the color?</li>
-    <li><strong>A:</strong> Yes, the Luxura Sofa comes in four colors: Charcoal Grey, Ocean Blue, Sand Beige, and White.</li>
+    <li><strong>How do I clean the sofa?</strong> Use a damp cloth or gentle fabric cleaner.</li>
+    <li><strong>Is assembly required?</strong> No tools needed, easy modular setup included.</li>
   </ul>
-
-  <h2>Where to Buy</h2>
-  <p>You can purchase the Luxura Sofa directly from our online store or visit one of our showrooms near you.</p>
-  <button id="ar-button" onclick="window.location.href='https://www.luxuraliving.com/shop'">Shop Now</button>
 </div>
 
 <footer>
