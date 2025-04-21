@@ -170,7 +170,8 @@
       text-decoration: underline;
     }
 
-    #ar-button {
+    #ar-button,
+    .ar-launch-button {
       background: linear-gradient(145deg, var(--accent), #00c8ff);
       border: none;
       padding: 12px 26px;
@@ -183,7 +184,8 @@
       transition: all 0.3s ease;
     }
 
-    #ar-button:hover {
+    #ar-button:hover,
+    .ar-launch-button:hover {
       background: linear-gradient(145deg, #00b0ff, #007acc);
       box-shadow: 0 0 20px rgba(0, 200, 255, 0.6);
     }
@@ -212,8 +214,15 @@
 
   <div class="container">
     <h2>3D Preview</h2>
+
+    <!-- External AR Button -->
+    <div style="text-align:center; margin-bottom: 20px;">
+      <button class="ar-launch-button" onclick="launchAR()">Launch AR</button>
+    </div>
+
     <div class="model-container">
       <model-viewer
+        id="sofaModel"
         src="https://cdn.glitch.me/ebbc803b-71ee-49ee-8a5f-8ea5f410b80c/Test%20sofa.glb?v=1744973549737"
         alt="Luxura Sofa 3D model"
         ar
@@ -265,6 +274,15 @@
       const button = document.querySelector('.theme-toggle');
       body.classList.toggle('light');
       button.textContent = body.classList.contains('light') ? '🌞' : '🌙';
+    }
+
+    function launchAR() {
+      const modelViewer = document.querySelector('#sofaModel');
+      if (modelViewer && modelViewer.activateAR) {
+        modelViewer.activateAR();
+      } else {
+        alert("AR not supported on this device.");
+      }
     }
   </script>
 
