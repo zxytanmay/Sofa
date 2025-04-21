@@ -21,6 +21,20 @@
       --border: rgba(255, 255, 255, 0.1);
     }
 
+    body.light {
+      --bg-color: #f9f9f9;
+      --text-color: #111;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --accent: #0077cc;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --border: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -30,21 +44,62 @@
     }
 
     header {
+      padding: 60px 20px 30px;
       text-align: center;
-      padding: 40px 20px 20px;
+      background: var(--bg-color);
+      box-shadow: 0 0 40px var(--shadow);
+      position: relative;
     }
 
     h1 {
       font-family: 'Urbanist', sans-serif;
-      font-size: 2.5rem;
+      font-size: 3rem;
       margin: 0;
       color: var(--accent);
     }
 
+    .theme-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 2px solid var(--accent);
+      border-radius: 50px;
+      color: var(--accent);
+      font-size: 1.2rem;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+
     .container {
       max-width: 960px;
-      margin: auto;
-      padding: 20px;
+      margin: 40px auto;
+      padding: 25px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px var(--shadow);
+    }
+
+    h2 {
+      font-family: 'Urbanist', sans-serif;
+      font-size: 2rem;
+      color: var(--accent);
+      border-left: 4px solid var(--accent);
+      padding-left: 15px;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 30px;
+    }
+
+    li {
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 1.05rem;
     }
 
     .model-container {
@@ -53,6 +108,7 @@
       border-radius: 12px;
       border: 1px solid var(--border);
       box-shadow: inset 0 0 10px var(--accent);
+      margin-bottom: 30px;
     }
 
     model-viewer {
@@ -79,14 +135,47 @@
       font-size: 0.95rem;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8rem;
-      }
+    .swatches {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
-      model-viewer {
-        height: 300px;
-      }
+    .swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+    }
+
+    .swatch.gray { background: #444; }
+    .swatch.blue { background: #0066cc; }
+    .swatch.beige { background: #d8c9b6; }
+    .swatch.white { background: #ffffff; }
+
+    .faq-item {
+      margin-bottom: 15px;
+    }
+
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background-color: var(--bg-color);
+      font-size: 0.95rem;
+      color: #aaa;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.4rem; }
+      model-viewer { height: 300px; }
     }
   </style>
 </head>
@@ -95,55 +184,111 @@
 
 <header>
   <h1>Luxura Sofa - Premium Comfort Meets Style</h1>
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 </header>
 
 <div class="container">
+  <h2>3D Preview</h2>
   <div class="model-container">
     <model-viewer id="sofa-viewer"
-                  src="https://cdn.glitch.me/ebbc803b-71ee-49ee-8a5f-8ea5f410b80c/Test%20sofa.glb?v=1744973549737"
-                  camera-controls
-                  tone-mapping="neutral"
-                  shadow-intensity="1"
-                  autoplay
-                  ar
-                  ar-modes="scene-viewer quick-look"
-                  alt="A 3D model of the Luxura Sofa">
+      src="https://cdn.glitch.me/ebbc803b-71ee-49ee-8a5f-8ea5f410b80c/Test%20sofa.glb?v=1744973549737"
+      camera-controls
+      tone-mapping="neutral"
+      shadow-intensity="1"
+      autoplay
+      ar
+      ar-modes="scene-viewer quick-look"
+      alt="3D model of the Luxura Sofa">
     </model-viewer>
-
     <button id="ar-button">View in AR</button>
     <div id="ar-message"></div>
   </div>
+
+  <h2>Available Colors</h2>
+  <div class="swatches">
+    <div class="swatch gray" title="Charcoal Grey"></div>
+    <div class="swatch blue" title="Ocean Blue"></div>
+    <div class="swatch beige" title="Sand Beige"></div>
+    <div class="swatch white" title="White"></div>
+  </div>
+
+  <h2>Features</h2>
+  <ul>
+    <li>Ergonomic Design with Ultra-Plush Foam</li>
+    <li>Premium Velvet Finish for a Luxe Feel</li>
+    <li>Durable Hardwood Base Frame</li>
+    <li>Easy-Clean, Stain-Resistant Material</li>
+    <li>Tool-Free Modular Setup</li>
+    <li>Contemporary Aesthetic Fits Any Living Room</li>
+  </ul>
+
+  <h2>Specifications</h2>
+  <ul>
+    <li><strong>Dimensions:</strong> 210cm x 90cm x 85cm</li>
+    <li><strong>Material:</strong> Velvet + Hardwood</li>
+    <li><strong>Color Options:</strong> Charcoal Grey, Ocean Blue, Sand Beige, White</li>
+    <li><strong>Weight:</strong> 45 kg</li>
+    <li><strong>Seating Capacity:</strong> 3 Seater</li>
+    <li><strong>Warranty:</strong> 3 Years</li>
+  </ul>
+
+  <h2>Customer Reviews</h2>
+  <ul>
+    <li><strong>Riya S. ⭐⭐⭐⭐⭐</strong> - “Absolutely love the feel and finish. Looks stunning in my living room!”</li>
+    <li><strong>Aman T. ⭐⭐⭐⭐</strong> - “Very comfortable and easy to assemble. Great value for money.”</li>
+    <li><strong>Neha D. ⭐⭐⭐⭐⭐</strong> - “The velvet is so soft and classy. I get compliments all the time!”</li>
+  </ul>
+
+  <h2>Why Choose Luxura?</h2>
+  <ul>
+    <li>Crafted with Comfort & Style in Mind</li>
+    <li>Elegant Velvet Finish with Premium Look</li>
+    <li>Backed by a 3-Year Warranty</li>
+    <li>Trusted by Thousands of Happy Customers</li>
+  </ul>
+
+  <h2>FAQ</h2>
+  <div class="faq">
+    <details class="faq-item">
+      <summary>Is assembly required?</summary>
+      <p>No tools needed. Luxura Sofa is modular and easy to set up.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can the covers be washed?</summary>
+      <p>Yes, the fabric is stain-resistant and easily cleanable.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is there a return policy?</summary>
+      <p>Yes, 15-day return policy is applicable with full refund.</p>
+    </details>
+  </div>
 </div>
 
+<footer>
+  <p>&copy; 2025 Luxura Living. All rights reserved. | <a href="#">Privacy Policy</a></p>
+</footer>
+
 <script>
+  function toggleTheme() {
+    const body = document.body;
+    const button = document.querySelector('.theme-toggle');
+    body.classList.toggle('light');
+    button.textContent = body.classList.contains('light') ? '🌞' : '🌙';
+  }
+
   const modelViewer = document.querySelector("#sofa-viewer");
   const arButton = document.getElementById("ar-button");
   const arMessage = document.getElementById("ar-message");
 
-  // Check if AR is supported
-  modelViewer.addEventListener("ar-status", (event) => {
-    if (event.detail.status === 'not-presenting') {
-      // fallback message after attempting AR
-      arMessage.textContent = "AR not available on this device.";
-    }
-  });
-
-  // Show AR button only if AR is supported
-  modelViewer.addEventListener("ar-button", () => {
-    arButton.style.display = 'inline-block';
-  });
-
-  // Click handler to open AR
-  arButton.addEventListener("click", () => {
-    modelViewer.activateAR();
-  });
-
-  // Simple AR support check
   if (modelViewer.canActivateAR) {
     arButton.style.display = 'inline-block';
   } else {
-    arMessage.textContent = "AR is not supported on this device. You can still view the 3D model.";
+    arMessage.textContent = "AR is not supported on this device. You can still interact with the 3D model.";
   }
+
+  arButton.addEventListener("click", () => {
+    modelViewer.activateAR();
+  });
 </script>
 
 </body>
